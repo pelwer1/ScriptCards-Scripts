@@ -1,6 +1,7 @@
 --/|ScriptCards Library: TravellerMg2eLib 
 --/|Provides various utility procedures for Mongoose Traveller 2e games
 --/|NOTES: Some procedures require TokenMod to be installed, see the ScriptCards WIKI for procedure documentation
+--/| https://wiki.roll20.net/Script:ScriptCards
 
 --/| LIST OF ELEMENTS THAT DONT WORK WHEN CALLED FROM THE LIBRARY
 --/|sourceToken|@{selected|token_id}  <-- not able to find the selected token
