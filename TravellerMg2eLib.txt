@@ -5,11 +5,17 @@
 --/| LIST OF ELEMENTS THAT DONT WORK WHEN CALLED FROM THE LIBRARY
 --/|sourceToken|@{selected|token_id}  <-- not able to find the selected token
 
+--/| Variables:  =/$ are Roll variables (numbers)
+--/| Variables:  &/& are string variables (text)
 
 
 
---:LibTrav_CardHeader|HeaderVariableName;InputValue
-  --/|CARD STYLE
+--/|--------------------------------------------------
+--/|  Format the script card chat output style
+--/|--------------------------------------------------
+
+--:LibTrav_CardHeader|ReturnVariableName;InputValue
+  --/|CARD STYLING
   --#titlecardbackground|#000000
   --#tableBorder|3px solid #8B0000;
   --#evenrowbackground|#D3D3D3
@@ -19,4 +25,27 @@
   --#noRollHighlight|1
   --/emoteSourceTokenSize|35
   --/emoteState|do not show token or emote text
+--<|
+
+--:LibTrav_ToggleTokenStatusMarker|StatusOnOff;TokenStatusMarkerName
+  --/| DEFINE THE RETURN VARIABLE
+    --&[%1%]|
+
+  --/| TOGGLE THE MARKER WITH TOKENMOD
+    --/| Give Players ability to run tokenmod    
+    --@token-mod|_config players-can-ids|on
+    --/| Toggle the marker
+    --@token-mod|_set statusmarkers|!"[%2%]"
+
+  --/|TEST IF TOKEN STATUS MARKER IS SET
+    --/| if not set, index will = "ArrayError"
+    --~[StatusMarks]|array;statusmarkers;StatusMarks;[*S:t-id]
+    --~MarkerIndex|array;indexof;StatusMarks;"[%2%]"
+    --?[&MarkerIndex] -eq  "ArrayError" |[
+    --+Cleared Token Marker!|
+      --&[%1%]|"Off"          
+    --]|[
+      --+Set Token Marker!|
+      --&[%1%]|"On"          
+    --]|
 --<|
