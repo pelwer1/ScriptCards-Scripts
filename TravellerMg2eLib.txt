@@ -36,6 +36,7 @@
     --@token-mod|_config players-can-ids|on
     --/| Toggle the marker
     --@token-mod|_set statusmarkers|![%2%]
+    --w1| Wait 1 second for TokenMod to finish
 
   --/|TEST IF TOKEN STATUS MARKER IS SET
     --/| if not set, index will = "ArrayError"
