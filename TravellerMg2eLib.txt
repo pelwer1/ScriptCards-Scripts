@@ -43,8 +43,8 @@
     --~[StatusMarks]|array;statusmarkers;StatusMarks;[*S:t-id]
     --~MarkerIndex|array;indexof;StatusMarks;[%2%]
     --+Marker Index|[&MarkerIndex]
-    --?[&MarkerIndex] -eq  "ArrayError" |[
-    --+Cleared Token Marker!|
+    --?[&MarkerIndex] -ne  "ArrayError" |[
+      --+Cleared Token Marker!|
       --&[%1%]|Off
     --]|[
       --+Set Token Marker!|
