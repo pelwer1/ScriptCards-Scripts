@@ -1,0 +1,22 @@
+--/|ScriptCards Library: TravellerMg2eLib 
+--/|Provides various utility procedures for Mongoose Traveller 2e games
+--/|NOTES: Some procedures require TokenMod to be installed, see the ScriptCards WIKI for procedure documentation
+
+--/| LIST OF ELEMENTS THAT DONT WORK WHEN CALLED FROM THE LIBRARY
+--/|sourceToken|@{selected|token_id}  <-- not able to find the selected token
+
+
+
+
+--:LibTrav_CardHeader|HeaderVariableName;InputValue
+  --/|CARD STYLE
+  --#titlecardbackground|#000000
+  --#tableBorder|3px solid #8B0000;
+  --#evenrowbackground|#D3D3D3
+  --#oddrowbackground|#E5E4E2
+  --#titleFontColor|#FFD700
+  --#noMinMaxHighlight|1
+  --#noRollHighlight|1
+  --/emoteSourceTokenSize|35
+  --/emoteState|do not show token or emote text
+--<|
