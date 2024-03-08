@@ -35,17 +35,18 @@
     --/| Give Players ability to run tokenmod    
     --@token-mod|_config players-can-ids|on
     --/| Toggle the marker
-    --@token-mod|_set statusmarkers|!"[%2%]"
+    --@token-mod|_set statusmarkers|![%2%]
 
   --/|TEST IF TOKEN STATUS MARKER IS SET
     --/| if not set, index will = "ArrayError"
     --~[StatusMarks]|array;statusmarkers;StatusMarks;[*S:t-id]
-    --~MarkerIndex|array;indexof;StatusMarks;"[%2%]"
+    --~MarkerIndex|array;indexof;StatusMarks;[%2%]
+    --+Marker Index|[&MarkerIndex]
     --?[&MarkerIndex] -eq  "ArrayError" |[
     --+Cleared Token Marker!|
-      --&[%1%]|"Off"          
+      --&[%1%]|Off
     --]|[
       --+Set Token Marker!|
-      --&[%1%]|"On"          
+      --&[%1%]|On
     --]|
 --<|
