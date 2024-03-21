@@ -1,7 +1,6 @@
 --/|ScriptCards Library: TravellerMg2eLib 
 --/|Provides various utility procedures for Mongoose Traveller 2e games
 --/|NOTES: Some procedures require TokenMod to be installed, see the ScriptCards WIKI for procedure documentation
---/| https://wiki.roll20.net/Script:ScriptCards
 
 --/| LIST OF ELEMENTS THAT DONT WORK WHEN CALLED FROM THE LIBRARY
 --/|sourceToken|@{selected|token_id}  <-- not able to find the selected token
@@ -14,7 +13,6 @@
 --/|--------------------------------------------------
 --/|  Format the script card chat output style
 --/|--------------------------------------------------
-
 --:LibTrav_CardHeader|ReturnVariableName;InputValue
   --/|CARD STYLING
   --#titlecardbackground|#000000
@@ -28,6 +26,9 @@
   --/emoteState|do not show token or emote text
 --<|
 
+--/|--------------------------------------------------
+--/|  Toggle a Status Marker On or Off on a Token
+--/|--------------------------------------------------
 --:LibTrav_ToggleTokenStatusMarker|StatusOnOff;TokenStatusMarkerName
   --/| DEFINE THE RETURN VARIABLE
     --&[%1%]|
@@ -48,6 +49,26 @@
       --&[%1%]|Off
     --]|[
       --/Set Token Marker!|
+      --&[%1%]|On
+    --]|
+--<|
+
+--/|--------------------------------------------------
+--/|  Check if a Status Marker is Present on a Token
+--/|--------------------------------------------------
+--:LibTrav_CheckTokenStatusMarker|StatusOnOff_s;TokenStatusMarkerName_s
+  --/| DEFINE THE RETURN VARIABLE AS STRING
+    --&[%1%]|
+  --/|TEST IF TOKEN STATUS MARKER IS SET
+    --/| if not set, index will = "ArrayError"
+    --~[StatusMarks]|array;statusmarkers;StatusMarks;[*S:t-id]
+    --~MarkerIndex|array;indexof;StatusMarks;[%2%]
+    --/Marker Index|[&MarkerIndex]
+    --?[&MarkerIndex] -eq  "ArrayError" |[
+      --/Token Marker Off|[%2%]
+      --&[%1%]|Off
+    --]|[
+      --/Token Marker On|[%2%]
       --&[%1%]|On
     --]|
 --<|
