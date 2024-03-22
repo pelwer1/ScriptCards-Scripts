@@ -22,8 +22,6 @@
   --#titleFontColor|#FFD700
   --#noMinMaxHighlight|1
   --#noRollHighlight|1
-  --/emoteSourceTokenSize|35
-  --/emoteState|do not show token or emote text
 --<|
 
 --/|--------------------------------------------------
@@ -72,3 +70,25 @@
       --&[%1%]|On
     --]|
 --<|
+
+
+--/|--------------------------------------------------
+--/|  Return values (or 0) of the 3 token bubbles in an array
+--/|  Blank Bubbles = 0
+--/|  Usage @BubbleValueRGB_l(0) = Red Bubble Value
+--/|--------------------------------------------------
+--:LibTrav_ReadTokenBubblesRGB|BubbleValueRGB_l
+  --/|READ THE BUBBLE VALUES IN DISPLAY ORDER
+    --=Red3Value_i|[*S:t-bar3_value]
+    --=Grn1Value_i|[*S:t-bar1_value]
+    --=Blu2Value_i|[*S:t-bar2_value]
+  --/| DEFINE THE RETURN VARIABLE AS ARRAY
+    --&[%1%]|
+    --~|array;define;[%1%];[$Red3Value_i];[$Grn1Value_i];[$Blu2Value_i]
+  --/| FOR DEBUG - PRINT ARRAY
+    --%loop|foreach;[%1%]
+      --+[%1%]|[&loop]
+    --%|
+--<|
+
+
