@@ -39,7 +39,7 @@
   --#noMinMaxHighlight|1
   --#noRollHighlight|1
   --#sourceToken|@{selected|token_id}
-  --#emoteSourceTokenSize|35
+  --#emoteSourceTokenSize|50
   --#emoteState|visible 
   --#emoteBackground|#DCDCDC
 
@@ -80,16 +80,7 @@
     --=AniDam|[$AnimalDam]d6
 
 
-  --/|DETERMINE WHO CONTROLS THE TOKEN TO SET VISIBILITY PROPERLY  (Controller = "all" for player tokens)
-    --&Controller|[*S:t-controlledby]
-    --/Controller| [&Controller]  (debug)
-    --?[&Controller] -eq  all |[
-      --&ShowPlayersName|1
-      --#emoteText|[&TokenName]
-    --]|[
-      --&ShowPlayersName|0
-      --#emoteText|Enemy Acts!
-    --]|
+
 
   --/|CHECK IF TOKEN REPRESENTS A CHARACTER
     --&TokenRep|[*S:t-represents]
@@ -158,12 +149,14 @@
     --]|
 
 
-  --/|SET TOKENNAME AND SHOW TO PLAYERS IF NOT AN ANIMAL (Turn on player access first)
+  --/|SET NPC TOKENNAME AND SHOW TO PLAYERS IF NOT AN ANIMAL or CHARACTER (Turn on player access first)
     --?[$AniDam] -eq 0 -and [&TokenRep(indexof,-)] -eq -1 |[
       --/|Ani Dam = [$AniDam] ; Tok Rep Index(-) = [&TokenRep(indexof,-)] (debug)
       --@token-mod|_config players-can-ids|on
       --@token-mod|_set showname|1 showplayers_name|[&ShowPlayersName] show_tooltip|1 showplayers_aura1|yes  showplayers_aura2|yes aura1_radius|0.05 aura1_color|FFFFFF aura2_radius|0.07 aura2_color|[&TokenAura2Color] name|"[&FinalTokenName]"  tooltip|"[&TokenToolTip]"   showplayers_bar2|1 playersedit_bar2|1
     --]|
+
+
 
 
   --/|DO NOT OVERWRITE HP IN BLUE BUBBLE IF ALREADY PRESENT
@@ -175,6 +168,20 @@
     --]|[
       --@token-mod|_set bar2|=[&TokenBlueBubbleHP]
     --]|
+
+
+  --/|DETERMINE WHO CONTROLS THE TOKEN TO SET VISIBILITY PROPERLY  (Controller = "all" for player tokens)
+    --&Controller|[*S:t-controlledby]
+    --/Controller| [&Controller]  (debug)
+    --?[&Controller] -eq  all |[
+      --&ShowPlayersName|1
+      --#emoteText|[&FinalTokenName]
+    --]|[
+      --&ShowPlayersName|0
+      --#emoteText|Enemy Acts!
+    --]|
+
+
 
   --/|OUTPUT LOOP THROUGH ROLLS OF TASK/SKILL CHECK AND DAMAGE
     --%LoopCounter|1;[$NumRolls];1
