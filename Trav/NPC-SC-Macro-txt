@@ -23,12 +23,11 @@
 
 !script {{
 
---/|CARD STYLE
-  --#titlecardbackground|#000000
-  --#tableBorder|3px solid #8B0000;
-  --#evenrowbackground|#D3D3D3
-  --#oddrowbackground|#E5E4E2
-  --#titleFontColor|#FFD700
+
+--/|LOAD LIRARY FUNCTIONS
++++TravellerMg2eLib+++
+
+--/|SET SCRIPT SPECIFIC CARD STYLE
   --#noMinMaxHighlight|1
   --#noRollHighlight|1
   --/emoteSourceTokenSize|35
@@ -160,8 +159,7 @@
       --]|
 
 
-   +++TravellerMg2eLib+++
-
+   
 --/|Boon Bane Dot detection
 --/|Boon Bane Dot detection
 
