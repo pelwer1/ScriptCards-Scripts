@@ -170,10 +170,10 @@
     --&CurrentBlueBubble|[*S:t-bar2_value]
     --/Current Blue Bubble| [&CurrentBlueBubble]
       --/|Blue Bubble = [&CurrentBlueBubble] ; Tok Rep Index(-) = [&TokenRep(indexof,-)] (debug)
-    --?"[&CurrentBlueBubble]" -gt 0  -or [&TokenRep(indexof,-)] -gt -1  |[
+    --?[&CurrentBlueBubble] -gt 0  -or [&TokenRep(indexof,-)] -gt -1  |[
       --/| Do Nothing
     --]|[
-      --@token-mod|_set bar2|=[&TokenBlueDotBubble]
+      --@token-mod|_set bar2|=[&TokenBlueBubbleHP]
     --]|
 
   --/|OUTPUT LOOP THROUGH ROLLS OF TASK/SKILL CHECK AND DAMAGE
