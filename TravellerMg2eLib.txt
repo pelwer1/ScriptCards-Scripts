@@ -7,6 +7,7 @@
 
 --/| Variables:  =/$ are Roll variables (numbers)
 --/| Variables:  &/& are string variables (text)
+--/| Note: use String variable (&/&) to store a dice string without evaluating it. Then use [&varname] in the Roll variable (=/$) evaluate the dice roll
 
 
 
