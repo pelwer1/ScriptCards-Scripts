@@ -1,25 +1,32 @@
 
 ! Ally/Enemy/Animal Token - handling extra's
-! 4 NPC States - Healthy DM+0 (no dot)/Hurt @8HP=DM-2(red dot)surrender or flee/Hemoraging: KO @3HP or KIA @0HP (red x)
-! 5 Ranks - N+0 3D      S+1 3D     V+2 3D      H+3 4D      L+4 5D
-!           22/8/3(3)   26/8/3(5)  30/8/3(5)   34/8/3(8)   38/8/3(10)
-!           all 8s      all 9s     all 10s     all 11s     all 12s
-! 3 Roll20 Bubbles:  Bar 3 Red Left Bubble: Rank DM;
-!                                  Bar 1 Green Middle Bubble: Animal Damage Dice (or blank if not Animal) ;
-!                                  Bar 2 Blue Right Stores starting and Max HP and shows health bar above token
+! 4 NPC States:
+!   Healthy DM+0 (no dot)
+!   Hit: DM+0 (yellow dot, not impaired)
+!   Hurt @8HP=DM-2(red dot)surrender or flee
+!   Hemoraging: KO @3HP or KIA @0HP (red x)
+! 5 Ranks
+!   Rank Code, DM, Dam:         N+0 3D      S+1 3D     V+2 3D      H+3 4D      L+4 5D
+!   Healthy/Hurt/Hemm(Armor):   22/8/3(3)   26/8/3(5)  30/8/3(5)   34/8/3(8)   38/8/3(10)
+!   Hits to Stat Map            all 8s      all 9s     all 10s     all 11s     all 12s
+!   Aura Color                  Blue        Yellow     Orange      Red         Purple 
 !
-! 1 Roll20 Token Name:  Squad# Rank Move Healthy/Hurt/KO(Armor) Range Damage (hth dam = -1D)
+! 3 Roll20 Bubbles:  
+!   Bar 3 Red Bubble (Left): Rank DM;
+!   Bar 1 Green Bubble (Middle): Animal Damage Dice (or blank if not Animal) ;
+!   Bar 2 Blue Bubble (Right): Max Hits and shows health bar above token
 !
-
+! 1 Roll20 Token Name:  [Squad#] Rank Move Healthy/Hurt/KO(Armor) Range Damage (hth dam = -1D)
+!   Token Name Examples and Aura Colors
+!   N 6m 22/8/3(3) 3D (blue)
+!   S 6m 26/8/3(5) 3D (yellow)
+!   V 6m 30/8/3(5) 3D (orange)
+!   H 6m 34/8/3(8) 4D (red)
+!   L 6m 38/8/3(8) 5D (purple)
+!
 ! Variables:  =/$ are Roll variables (numbers)
 ! Variables:  &/& are string variables (text)
 
-! Token Name Examples and Aura Colors
-! N 6m 22/8/3(3) 3D (blue)
-! S 6m 26/8/3(5) 3D (yellow)
-! V 6m 30/8/3(5) 3D (orange)
-! H 6m 34/8/3(8) 4D (red)
-! L 6m 38/8/3(8) 5D (purple)
 
 !script {{
 
@@ -28,55 +35,73 @@
 +++TravellerMg2eLib+++
 
 --/|SET SCRIPT SPECIFIC CARD STYLE
+  -->LibTrav_CardHeader|a;b
   --#noMinMaxHighlight|1
   --#noRollHighlight|1
-  --/emoteSourceTokenSize|35
-  --/emoteState|do not show token or emote text
-  --#emoteBackground|#DCDCDC
   --#sourceToken|@{selected|token_id}
+  --#emoteSourceTokenSize|35
+  --#emoteState|visible 
+  --#emoteBackground|#DCDCDC
+
 
 --/|USER INPUT
   --=NumRolls|?{# Rolls?|1}
   --=SitMod|?{Modifier?|0}
 
---/|READ TOKEN INFO
-  --/|TEST IF RED DOT IS SET - if not red index will = "ArrayError"
-  --~[StatusMarks]|array;statusmarkers;StatusMarks;[*S:t-id]
-  --~RedIndex|array;indexof;StatusMarks;red
-  --?[&RedIndex] -eq  ArrayError |[
-     --=WoundDM|0
-  --]|[
-     --=WoundDM|-2
+--/|IF RED DOT (HURT) SET, ADD WOUND DM
+  -->LibTrav_CheckTokenStatusMarker|StatusOnOff;red
+  --/Status red| [&StatusOnOff] (debug)
+  --?[&StatusOnOff] -eq Off | =WoundDM;0 | =WoundDM;-2 
+
+--/|IF PURPLE/PINK DOTS (BOON/BANE) SET, MODIFY SKILL DICE
+  --&SkillDice|2d6
+  -->LibTrav_CheckTokenStatusMarker|StatusOnOff;purple
+  --/Status purple| [&StatusOnOff]  (debug)
+  --?[&StatusOnOff] -eq On |[
+    --&SkillDice|3d6kh2
+    --+Rolling with [#080]BOON!![/#]|
   --]|
+  -->LibTrav_CheckTokenStatusMarker|StatusOnOff;pink
+  --/Status pink| [&StatusOnOff] (debug)
+  --?[&StatusOnOff] -eq On |[
+    --&SkillDice|3d6kl2
+    --+Rolling with  [#f00]BANE![/#]|
+  --]|
+  
 
-  --/|CHECK IF TOKEN REPRESENTS A CHARACTER
-    --&TokenRep|[*S:t-represents]
-    --/Token Rep|[&TokenRep]
-
-  --/|READ THE RED BUBBLE FOR RANK DM
+  --/|READ THE RED BUBBLE (bar3) FOR RANK DM
     --=RankDM|[*S:t-bar3_value]
-    --/Rank DM|[$RankDM]
+    --/Rank DM|[$RankDM] (debug)
 
-  --/|READ THE GREEN BUBBLE FOR ANIMAL DAMAGE DICE
+  --/|READ THE GREEN BUBBLE (bar1) FOR ANIMAL DAMAGE DICE
     --=AnimalDam|[*S:t-bar1_value]
-    --/Animal Dam|[$AnimalDam]
+    --/Animal Dam|[$AnimalDam] (debug)
     --/|Need to make a roll here for the token renaming test below - animal tokens are NOT renamed
     --=AniDam|[$AnimalDam]d6
 
+
   --/|DETERMINE WHO CONTROLS THE TOKEN TO SET VISIBILITY PROPERLY  (Controller = "all" for player tokens)
     --&Controller|[*S:t-controlledby]
-    --/Controller| [&Controller]
-      --?[&Controller] -eq  all |[
-         --&ShowPlayersName|1
-      --]|[
-         --&ShowPlayersName|0
-      --]|
+    --/Controller| [&Controller]  (debug)
+    --?[&Controller] -eq  all |[
+      --&ShowPlayersName|1
+      --#emoteText|[&TokenName]
+    --]|[
+      --&ShowPlayersName|0
+      --#emoteText|Enemy Acts!
+    --]|
+
+  --/|CHECK IF TOKEN REPRESENTS A CHARACTER
+    --&TokenRep|[*S:t-represents]
+    --/Token Rep|[&TokenRep] (debug)
+
+
+
 
   --/|WRITE CARD HEADER
     --?[$AniDam] -eq 0 |[
-      --/| NOT an Animal
       --#title|NPC Action
-    --]|[
+    --]|[ 
       --#title|ANIMAL Action
     --]|
     --#leftsub|Mod:[$SitMod], Rank DM:[$RankDM], Wound DM:[#f00][$WoundDM] [/#]
@@ -87,7 +112,7 @@
        --&TokenName|N 6m 22/8/3(3) 3D
        --&TokenToolTip|Novice(DM+0);; Rifle 10/40/80 Mag:12;; Pistol 3/10/20 Mag:12;;  Knife;; Flak(3)
        --&TokenAura2Color|87CEEB
-       --&TokenBlueDotHP|22
+       --&TokenBlueBubbleHP|22
        --&RngDam|3d6
        --&MelDam|2d6
     --]|
@@ -95,7 +120,7 @@
        --&TokenName|S 6m 26/8/3(5) 3D
        --&TokenToolTip|Seasoned(DM+1);;  Rifle 50/100 Mag:12;; Pistol 3/10/20 Mag:12;;  Knife;; Flak(5)
        --&TokenAura2Color|FFFF00
-       --&TokenBlueDotHP|26
+       --&TokenBlueBubbleHP|26
        --&RngDam|3d6
        --&MelDam|2d6
     --]|
@@ -103,7 +128,7 @@
        --&TokenName|V 6m 30/8/3(5) 3D
        --&TokenToolTip|Veteran(DM+2);;  Rifle 50/200/400, Scope, Mag:12;; Pistol 3/10/20 Mag:12;;  Knife;; Flak(5)
        --&TokenAura2Color|FF6500
-       --&TokenBlueDotHP|30
+       --&TokenBlueBubbleHP|30
        --&RngDam|3d6
        --&MelDam|2d6
     --]|
@@ -111,7 +136,7 @@
        --&TokenName|H 6m 34/8/3(8) 4D
        --&TokenToolTip|Heroic(DM+3);; Rifle 50/200/400, Scope, Mag:12;; Pistol 3/10/20 Mag:12;;  Blade;; Cloth(8)
        --&TokenAura2Color|FF0000
-       --&TokenBlueDotHP|34
+       --&TokenBlueBubbleHP|34
        --&RngDam|4d6
        --&MelDam|3d6
     --]|
@@ -119,7 +144,7 @@
        --&TokenName|L 6m 38/8/3(8) 5D
        --&TokenToolTip|Legendary(DM+4);; Rifle 100/400/800 Zero-G, Scope, Mag:100;; Pistol 5/20/40 Mag:40;; Blade;; Cloth(8)
        --&TokenAura2Color|800080
-       --&TokenBlueDotHP|38
+       --&TokenBlueBubbleHP|38
        --&RngDam|5d6
        --&MelDam|4d6
     --]|
@@ -132,56 +157,28 @@
       --&FinalTokenName| [&CurrentTokenName]  [&TokenName]
     --]|
 
-  --/| RUN TOKENMOD COMMAND - if not an Animal (Turn on player access first)
+
+  --/|SET TOKENNAME AND SHOW TO PLAYERS IF NOT AN ANIMAL (Turn on player access first)
     --?[$AniDam] -eq 0 -and [&TokenRep(indexof,-)] -eq -1 |[
-      --/|Ani Dam = [$AniDam] ; Tok Rep Index(-) = [&TokenRep(indexof,-)]
-      --/| NOT an Animal or a CHaracter
+      --/|Ani Dam = [$AniDam] ; Tok Rep Index(-) = [&TokenRep(indexof,-)] (debug)
       --@token-mod|_config players-can-ids|on
       --@token-mod|_set showname|1 showplayers_name|[&ShowPlayersName] show_tooltip|1 showplayers_aura1|yes  showplayers_aura2|yes aura1_radius|0.05 aura1_color|FFFFFF aura2_radius|0.07 aura2_color|[&TokenAura2Color] name|"[&FinalTokenName]"  tooltip|"[&TokenToolTip]"   showplayers_bar2|1 playersedit_bar2|1
     --]|
 
-  --/|DO NOT OVERWRITE HP IN BLUE BUBBLE IF ALREADY PRESENT
-    --&CurrentBlueDot|[*S:t-bar2_value]
-    --/Current Blue Dot| [&CurrentBlueDot]
-      --/|Blue Dot = [&CurrentBlueDot] ; Tok Rep Index(-) = [&TokenRep(indexof,-)]
 
-    --?"[&CurrentBlueDot]" -gt 0  -or [&TokenRep(indexof,-)] -gt -1  |[
+  --/|DO NOT OVERWRITE HP IN BLUE BUBBLE IF ALREADY PRESENT
+    --&CurrentBlueBubble|[*S:t-bar2_value]
+    --/Current Blue Bubble| [&CurrentBlueBubble]
+      --/|Blue Bubble = [&CurrentBlueBubble] ; Tok Rep Index(-) = [&TokenRep(indexof,-)] (debug)
+    --?"[&CurrentBlueBubble]" -gt 0  -or [&TokenRep(indexof,-)] -gt -1  |[
       --/| Do Nothing
     --]|[
-      --@token-mod|_set bar2|=[&TokenBlueDotHP]
+      --@token-mod|_set bar2|=[&TokenBlueDotBubble]
     --]|
 
-  --/|EMOTE TOKEN NAME IF CONTROLLED BY PLAYERS (Controller = "all" for player tokens)
-      --?[&Controller] -eq  all |[
-         --#emoteText|[&TokenName]
-      --]|[
-         --#emoteText|Enemy Acts!
-      --]|
-
-
-   
---/|Boon Bane Dot detection
---/|Boon Bane Dot detection
-
---&SkillDice|2d6
--->LibTrav_CheckTokenStatusMarker|StatusOnOff;purple
---/Status purple| [&StatusOnOff] 
---?[&StatusOnOff] -eq On |[
-  --&SkillDice|3d6kh2
-  --+Rolling with [#080]BOON!![/#]|
---]|
--->LibTrav_CheckTokenStatusMarker|StatusOnOff;pink
---Status pink| [&StatusOnOff] 
---?[&StatusOnOff] -eq On |[
-  --&SkillDice|3d6kl2
-  --+Rolling with  [#f00]BANE![/#]|
---]|
-
-
-  --/|LOOP THROUGH ROLLS OF TASK/SKILL CHECK AND DAMAGE
+  --/|OUTPUT LOOP THROUGH ROLLS OF TASK/SKILL CHECK AND DAMAGE
     --%LoopCounter|1;[$NumRolls];1
       --/| TASK ROLL
-      --/Roll1|2d6 + [$WoundDM] + [$RankDM] +  [$SitMod]
       --=Roll1|[&SkillDice] + [$WoundDM] + [$RankDM] +  [$SitMod]
       --?[$Roll1] -ge 8|[
          --&Roll1Out|[#080][$Roll1][/#]
