@@ -1,18 +1,21 @@
 ! Vehicle Token Run by NPC Vehicle Team (no sheet, quick and dirty) 
-! 3 Roll20 Bubbles:  Bar 3 Red   Left   Bubble: Vehicle Agility DM;  
-!                    Bar 1 Green Middle Bubble:  Crew DM 0/1/2/3/4  for N/S/V/H/L
-!                    Bar 2 Blue Stores starting and Max Hull Points and shows health bar above token
+! 3 Roll20 Bubbles:  
+!     Bar 3 Red   Left Bubble:    Crew Rank DM 0/1/2/3/4  for N/S/V/H/L 
+!     Bar 1 Green Middle Bubble:  Vehicle Agility DM; 
+!     Bar 2 Blue  Right Bubble:   Hull Points and shows health bar above token
 !
-! 1 Roll20 Token Name:  Squad# AgilityDM/TopSpeed/Hull(Armor F/R/S) Pri/Sec Guns
+! Roll20 Token Name:  [SquadID] AgilityDM/TopSpeed/Hull(Armor F/R/S) Pri/Sec Guns
 !
 ! Speed Bands: Stop:0m/r, Idle:50m/r, V.Slow:100m/r, Slow:150m/r, Med:200m/r, High:300m/r, Fast:500m/r, V.Fast:800m/r (10 rounds to achieve)
 ! 
-! NPC Crits that inflict a negative DM simple reduce the Agility of the Vehicle
-
-! Token Name Examples and Aura Colors based on Land/Air/Sea  (no aura today...)
-! (Name Agility/TopSpeed/Hull(Armor Front/Rear/Side)
-!  Tank -2/Slow/90(70/40/65) ACan/MG (green - land)
-!    Vehicle Reference Button 
+! NPC Crits that inflict a negative DM simply reduce the Agility of the Vehicle
+!
+! Token Name Examples
+! Name Agility/TopSpeed/Hull(Armor Front/Rear/Side)
+!  Tank -2/Slow/90(70/40/65) ACan/MG 
+!
+!
+! Vehicle Reference Button 
 ! Vehicle Weapons:
 ! MG(F.Pin),R:1km,4D,Mag:100,Auto3;; 
 ! ACan(Tur),R:1km,6D,Mag:500,Auto3;;;
@@ -26,21 +29,17 @@
 ! Speed Bands (m/r): 
 ! Stop:, Idle:50, V.Slow:100, Slow:150, Med:200, High:300, Fast:500, V.Fast:800m(10r req.)
 
-
-
 !script {{
 
---/|CARD STYLE
-  --#titlecardbackground|#000000
-  --#tableBorder|3px solid #8B0000;
-  --#evenrowbackground|#D3D3D3
-  --#oddrowbackground|#E5E4E2
-  --#titleFontColor|#FFD700 
-  --#noMinMaxHighlight|1
-  --#noRollHighlight|1 
-  --/emoteSourceTokenSize|35
-  --/emoteState|do not show token or emote text
+--/|LOAD LIRARY FUNCTIONS
++++TravellerMg2eLib+++
+
+--/|SET SCRIPT SPECIFIC CARD STYLE
+  -->LibTrav_CardHeader|a;b
   --#sourceToken|@{selected|token_id}
+  --#emoteSourceTokenSize|50
+  --#emoteState|visible 
+  --#emoteBackground|#DCDCDC
 
 --/|USER INPUT
   --=NumRolls|?{# Gunner Rolls?|1}
@@ -48,26 +47,25 @@
 
 --/|READ TOKEN INFO
 
+  --/|READ THE RED BUBBLE FOR CREW DM
+    --=VehCrewDM|[*S:t-bar3_value]
+    --/Veh Crew DM Points|[$VehCrewDM] (debug)
 
-  --/|READ THE RED BUBBLE FOR AGILITY DM
-    --=VehAgilityDM|[*S:t-bar3_value]
-    --/VehAgility DM|[$VehAgilityDM]
+  --/|READ THE GREEN BUBBLE FOR AGILITY DM
+    --=VehAgilityDM|[*S:t-bar1_value]
+    --/VehAgility DM|[$VehAgilityDM] (debug)
 
   --/|READ THE BLUE BUBBLE FOR HULL POINTS
     --=VehHullPoints|[*S:t-bar2_value]
-    --/Veh Hull Points|[$VehHullPoints]
-
-  --/|READ THE GREEN BUBBLE FOR CREW DM
-    --=VehCrewDM|[*S:t-bar1_value]
-    --/Veh Crew DM Points|[$VehCrewDM]
+    --/Veh Hull Points|[$VehHullPoints] (debug)
 
   --/|READ THE TOKEN NAME FOR EMOTE TEXT IF PLAYER OWNS TOKEN
        --&TokenName|[*S:t-name]
-       --/Token Name|[&TokenName]
+       --/Token Name|[&TokenName] (debug)
 
   --/|DETERMINE WHO CONTROLS THE TOKEN TO SET VISIBILITY PROPERLY  (Controller = "all" for player tokens)
     --&Controller|[*S:t-controlledby]
-    --/Controller| [&Controller]
+    --/Controller| [&Controller] (debug)
       --?[&Controller] -eq  all |[
          --&ShowPlayersName|1
          --#emoteText|[&TokenName] 
@@ -78,11 +76,7 @@
 
   --/|WRITE CARD HEADER
     --#title|VEHICLE Action
-    --#emoteFontColor| #800080
     --#leftsub|Name Agi/TopSpeed/Hull(AF/AR/AS) Guns[br]Mod:[$SitMod], Agi DM:[$VehAgilityDM], Crew DM:[$VehCrewDM], Hull:[$VehHullPoints]
-
-  --/| BUILD TOKENMOD COMMAND COMPONENTS FOR TOKEN CONFIG
-       --&TokenToolTip| 
 
   --/| RUN TOKENMOD COMMAND (Turn on player access first)
       --@token-mod|_config players-can-ids|on
@@ -91,7 +85,7 @@
       --/| MANEUVER TASK ROLL (CREW DM AND AGILITY DM)
       --=MRoll1|2d6 + [$VehAgilityDM] + [$VehCrewDM] + [$SitMod]
       --?[$MRoll1] -ge 8|[
-         --&MRoll1Out|[#080][$MRoll1][/#]
+         --&MRoll1Out|[#080][$MRoll1] Success![/#]
       --]|[
          --&MRoll1Out|[$MRoll1]
       --]|
@@ -103,7 +97,7 @@
          --&MEff1Out|[$MEff1]
       --]|
   --/|WRITE OUT SINGLE MANEUVER ROLL
-        --+|[c]**Maneuver Roll:**[&MRoll1Out]**Effect:**[&MEff1Out] [/c]
+        --+|[c]**Maneuver Roll:**[&MRoll1Out] **Effect:**[&MEff1Out] [/c]
 
   --/|LOOP THROUGH ROLLS OF TASK/SKILL CHECK AND DAMAGE
     --%LoopCounter|1;[$NumRolls];1
@@ -111,7 +105,7 @@
       --/| MAIN GUN1 TASK ROLL (CREW DM BUT NO AGILITY DM)
       --=GRoll1|2d6 +  [$VehCrewDM] + [$SitMod]
       --?[$GRoll1] -ge 8|[
-         --&GRoll1Out|[#080][$GRoll1][/#]
+         --&GRoll1Out|[#080][$GRoll1] Success![/#]
       --]|[
          --&GRoll1Out|[$GRoll1]
       --]|
@@ -130,23 +124,19 @@
         --=4D| 4d6 + [$GEff1]
         --=5D| 5d6 + [$GEff1]
         --=6D| 6d6 + [$GEff1]
-
  
       --/| OUTPUT
-        --+[&LoopCounter]:|**Gunner Roll:**[&GRoll1Out]**Effect:**[&GEff1Out]** Damage:**[br] 1D[$1D]2D[$2D]3D[$3D]4D[$4D]5D[$5D]6D[$6D]
- --%|
+        --+[&LoopCounter]:|**Gunner:**[&GRoll1Out] **Effect:**[&GEff1Out]** Dam:**[br] 1D[$1D]2D[$2D]3D[$3D]4D[$4D]5D[$5D]6D[$6D]
+    --%|
 
 --:PROVIDE A BUTTON FORVIEWING VEHICLE REFERENCE|
-   --/[c][View Vehicle Reference](`#VehRef)[/c]|
-
-  --+| [c] [rbutton]Poke to Show Vehicle Weapon/Speed Reference!::SHOW_VEHICLE_REFERENCE;0[/rbutton] [/c]
-  --X|
+    --+| [c] [rbutton]Poke to Show Vehicle Weapon/Speed Reference!::SHOW_VEHICLE_REFERENCE;0[/rbutton] [/c]
+--X|
 
   --:SHOW_VEHICLE_REFERENCE|
 --+[#080][Vehicle Weapons:[/#]| [br] **MG:** (F.Pin),R:1km,4D,Mag:100,Auto3 [br] **ACan:** (Tur),R:1km,6D,Mag:500,Auto3 [br]**Can:** (Tur),R:2km,8D,Mag:30,Blast10 [br] **LsrCan:** (Tur),R:2.5km,1DD,Mag:Inf,AP10[br]**PGA:** (Tur),R:6km,2DD,Mag:Inf,AP10 [br] **AnMisLsr:** (Tur),R:.5,1D,Auto3(7+,pg49 VHB)[br]**GCan:** (Tur),R:3km,Mag:60,2DD,AP15,Auto2[br] **FGX:** (Tur),R:3,3DD,Inf,AP10,Blast15,Rads
 --+[#080]Speed Bands[/#]| (m/r): **Stop:**0, **Idle:**50, [br]**V.Slow:**100, **Slow:**150, **Med:**200[br]**High:**300, **Fast:**500, **V.Fast:**800m(10r req.)
-
-  --X|
+--X|
 
 }}
 

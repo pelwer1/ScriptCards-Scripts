@@ -41,7 +41,6 @@
   --#emoteState|visible 
   --#emoteBackground|#DCDCDC
 
-
 --/|USER INPUT
   --=NumRolls|?{# Rolls?|1}
   --=SitMod|?{Modifier?|0}
@@ -66,7 +65,6 @@
     --+Rolling with  [#f00]BANE![/#]|
   --]|
   
-
   --/|READ THE RED BUBBLE (bar3) FOR RANK DM
     --=RankDM|[*S:t-bar3_value]
     --/Rank DM|[$RankDM] (debug)
@@ -77,15 +75,9 @@
     --/|Need to make a roll here for the token renaming test below - animal tokens are NOT renamed
     --=AniDam|[$AnimalDam]d6
 
-
-
-
   --/|CHECK IF TOKEN REPRESENTS A CHARACTER
     --&TokenRep|[*S:t-represents]
     --/Token Rep|[&TokenRep] (debug)
-
-
-
 
   --/|WRITE CARD HEADER
     --?[$AniDam] -eq 0 |[
@@ -146,16 +138,12 @@
       --&FinalTokenName| [&CurrentTokenName]  [&TokenName]
     --]|
 
-
   --/|SET NPC TOKENNAME AND SHOW TO PLAYERS IF NOT AN ANIMAL or CHARACTER (Turn on player access first)
     --?[$AniDam] -eq 0 -and [&TokenRep(indexof,-)] -eq -1 |[
       --/|Ani Dam = [$AniDam] ; Tok Rep Index(-) = [&TokenRep(indexof,-)] (debug)
       --@token-mod|_config players-can-ids|on
       --@token-mod|_set showname|1 showplayers_name|[&ShowPlayersName] show_tooltip|1 showplayers_aura1|yes  showplayers_aura2|yes aura1_radius|0.05 aura1_color|FFFFFF aura2_radius|0.07 aura2_color|[&TokenAura2Color] name|"[&FinalTokenName]"  tooltip|"[&TokenToolTip]"   showplayers_bar2|1 playersedit_bar2|1
     --]|
-
-
-
 
   --/|DO NOT OVERWRITE HP IN BLUE BUBBLE IF ALREADY PRESENT
     --&CurrentBlueBubble|[*S:t-bar2_value]
@@ -167,7 +155,6 @@
       --@token-mod|_set bar2|=[&TokenBlueBubbleHP]
     --]|
 
-
   --/|DETERMINE WHO CONTROLS THE TOKEN TO SET VISIBILITY PROPERLY  (Controller = "all" for player tokens)
     --&Controller|[*S:t-controlledby]
     --/Controller| [&Controller]  (debug)
@@ -178,8 +165,6 @@
       --&ShowPlayersName|0
       --#emoteText|Enemy Acts!
     --]|
-
-
 
   --/|OUTPUT LOOP THROUGH ROLLS OF TASK/SKILL CHECK AND DAMAGE
     --%LoopCounter|1;[$NumRolls];1
