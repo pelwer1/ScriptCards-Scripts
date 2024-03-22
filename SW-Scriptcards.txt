@@ -1,0 +1,401 @@
+
+============= SW SECTION ================
+
+Trap Table
+
+!scriptcard  {{
+--/COLOR CONFIG|
+  --#titlecardbackground|#990000
+  --#evenrowbackground|#CEC7B6
+  --#oddrowbackground|#B6AB91
+  --#emoteBackground|#CEC7B6
+
+--/OUTPUT OPTIONS|
+  --#whisper|gm
+
+--/TITLES AND EMOTES|
+  --#title|Trap Generator
+
+--/CONTENT|
+  --=DrawCard1|[T#Chase-Deck-Table]
+  --=DrawCard2|[T#Chase-Deck-Table]
+  --=DrawCard3|[T#Chase-Deck-Table]
+  --=RollPower|[T#Shadora-Powers]
+   --=d66tens|1d6
+  --=d66ones|1d6
+  --+Trap Detect and Disarm:|   [#fff][b] [$DrawCard1.tableEntryText] [/b][/#]
+  --+|[b]Searching for Traps[/b] is an Action (w/o Danger Sense);  [b]Skills Used:[/b] Notice (Det), Thievery or Repair-2(Dis) [c][t border=2 width=95% align=center][tr][th]Value[/th][th]Detect[/th][th]Suit[/th][th]Disarm[/th][/tr][tr][td]Joker[/td][td]+2[/td][td]Joker[/td][td]+2[/td][/tr][tr][td]K-A[/td][td]+1[/td][td]Diamond[/td][td]+1[/td][/tr][tr][td]J-Q[/td][td]+0[/td][td]Heart[/td][td]+0[/td][/tr][tr][td]5-10[/td][td]-2[/td][td]Spade[/td][td]-2[/td][/tr][tr][td]2-4[/td][td]-4[/td][td]Club[/td][td]-4[/td][/tr][/t][/c]
+  --+Trap Details:|  [#fff][b] [$DrawCard2.tableEntryText] [/b][/#] (if Jo,    [#fff][b] [$DrawCard3.tableEntryText] [/b][/#] ) [br]
+  --+|Traps are [b]d10[/b] all Skills; [b]If Detected:[/b] Traps May be [b]Evaded[/b] (Agi-2-Disarm) [c][t border=2 width=95% align=center][tr][th]Card[/th][th]Type[/th][th]Dia/Hea[/th][th]Spade[/th][th]Club[/th][/tr][tr][td]Jo[/td][td]Wild Die[/td][td]+d6[/td][td]+d8[/td][td]+d10[/td][/tr][tr][td]Ace&[/td][td]Glyph @[/td][td]Normal[/td][td]Raise[/td][td]Epic[/td][/tr][tr][td]Ki#[/td][td]Deadfall[/td][td]3d6[/td][td]4d6[/td][td]5d6[/td][/tr][tr][td]JQ%[/td][td]Poison[/td][td]POT 2[/td][td]POT 4[/td][td]POT 6[/td][/tr][tr][td]9-10[/td][td]Blade @[/td][td]2d6[/td][td]3d6[/td][td]4d6[/td][/tr][tr][td]6-8[/td][td]Dart @[/td][td]2x2d6[/td][td]3x2d8[/td][td]4x2d10[/td][/tr][tr][td]5 $[/td][td]Spikes[/td][td]3d6+2[/td][td]4d6+4[/td][td]5d6+6[/td][/tr][tr][td]3-4 $[/td][td]Pit[/td][td]2d6[/td][td]3d6[/td][td]4d6[/td][/tr][tr][td]2 ![/td][td]Portcullis[/td][td]Str-2[/td][td]Str-4[/td][td]Str-6[/td][/tr][/t][/c] [b]![/b] Only 2 may lift together;  [b]%[/b] Jack = Gas; Queen = Dart; [b]#[/b] Hits LBT; [b]@[/b] Skill roll required, if Joker, add Wild Die;  [b]$[/b] Pits are SBT/MBT/LBT by Suit; [b]&[/b] GM Choice or:  [u][i][$RollPower.tableEntryText][/i][/u]
+  --+Trap Flavor:| [$d66tens][$d66ones]
+  --+|[c][t border=2 width=100%][tr][td]Acid Pool[/td][td]Blunt Weight[/td][td]Falling Cage[/td][/tr][tr][td]Adhesive[/td][td]Boiling Tar[/td][td]Ceiling Falls[/td][/tr][tr][td]Alarm[/td][td]Floor Falls[/td][td]Fills w/Sand[/td][/tr][tr][td]Flame Oil[/td][td]Croc Pit[/td][td]Flooding[/td][/tr][tr][td]Bear Trap[/td][td]Wall Crush[/td][td]Big Magnet[/td][/tr][tr][td]Fear Gas[/td][td]Disease[/td][td]Vacuum[/td][/tr][tr][td colspan=3][/td][/tr][tr][td]Lava[/td][td]Oven Heat[/td][td]Ice  Cold[/td][/tr][tr][td]Lightning[/td][td]Blind Gas[/td][td]Fire Jet[/td][/tr][tr][td]Wake Statue[/td][td]Shrink[/td][td]Sleep Gas[/td][/tr][tr][td]Electric[/td][td]Quicksand[/td][td]Sonic[/td][/tr][tr][td]Free Fiend[/td][td]Rage Gas[/td][td]Chute[/td][/tr][tr][td]Net Falls[/td][td]Roll Rock[/td][td]Wall Spikes[/td][/tr][/t][/c]
+
+}}
+
+staff of wonder
+
+!scriptcard  {{
+--/COLOR CONFIG|
+  --#titlecardbackground|#990000
+  --#evenrowbackground|#CEC7B6
+  --#oddrowbackground|#B6AB91
+  --#emoteBackground|#CEC7B6
+
+
+--/TITLES AND EMOTES|
+  --#title|Staff of House Korrell
+  --#leftsub|[c]Free Action: Some Control [br] Action or a Benny: More Control[/c]
+  --#emoteText|You attempt to master the wild magic of the Staff of House Korrell...
+
+--/CONTENT|
+  --+|[c][b]Limited Free Action[/b] [rbutton]Some Control...::SomeControl[/rbutton] [/c]
+  --+|[c][b]Action or a Benny[/b] [rbutton]More Control...::MoreControl[/rbutton] [/c]
+  --X|
+
+  --:SomeControl|
+  --+|[c][b]Choose Wisely...[/b][/c]
+  --=StaffRoll|[T#JMStaff]
+  --+A:|[$StaffRoll.tableEntryText]
+  --=StaffRoll|[T#JMStaff]
+  --+B:|[$StaffRoll.tableEntryText]
+  --X|
+
+  --:MoreControl|
+  --+|[c][b]Choose Wisely...[/b][/c]
+  --=StaffRoll|[T#JMStaff]
+  --+A:|[$StaffRoll.tableEntryText]
+  --=StaffRoll|[T#JMStaff]
+  --+B:|[$StaffRoll.tableEntryText]
+  --=StaffRoll|[T#JMStaff]
+  --+C:|[$StaffRoll.tableEntryText]
+  --X|
+
+}}
+
+
+
+
+COMBAT HELPER
+
+!scriptcard  {{
+  --#whisper|gm
+  --#titlecardbackground|#990000
+  --#evenrowbackground|#CEC7B6
+  --#oddrowbackground|#B6AB91
+  --#title|GM Combat Helper
+
+
+
+  --#emoteBackground|#CEC7B6
+  --#emoteText|Your enemy presses forward and attacks ferociously...
+  --#sourceToken|@{selected|token_id}
+
+&{template:default}{{name=@{Div|Left}   NPC Attack!}}  {{Att:=[[ @{selected|CBT} + ?{Mods|0} ]]  **Frz:** [[ @{selected|CBT} + ?{Mods|0} ]] **Arc:**[[ @{selected|ARC} + ?{Mods|0} ]]  (**W**[[ ?{Enter 1 for Wild Die|0}*d6! + ?{Enter 1 for Wild Die|0}*?{Mods|0}]]) }}
+
+
+}}
+
+RANDOM ENCOUNTER
+
+!scriptcards {{
+  --#titlecardbackground|#990000
+  --#evenrowbackground|#B6AB91
+  --#oddrowbackground|#CEC7B6
+
+  --#title|Encounter
+  --#leftsub|[c]Draw an Action Deck Card [br]Encounter Occurs on a Facecard[/c]
+  --+♠️ Danger|  Something found you: [Danger!](`#Random-Encounter)
+  --+[#990000]♦️[/#] Discovery| An interesting find [rbutton]Discovery!::Discovery[/rbutton]
+  --+♣️ Obstacle|An Impediment [rbutton]Obstacle!::Obstacle[/rbutton]
+  --+[#990000]♥️[/#] Stranger| A new face [rbutton]Stranger!::Stranger[/rbutton]
+  --+|[c]Joker! 🃏 Party Chooses Encounter Type[/c]
+  --X|
+
+  --:Discovery|
+  --=DiscoveryRoll|[T#Discovery]
+  --*Discovery:|[$DiscoveryRoll.tableEntryText]
+   --*May be Defended| by [rbutton]Stranger!::Stranger[/rbutton] or
+  [Danger!](`#Random-Encounter)
+  --X|
+
+  --:Obstacle|
+  --=ObstacleRoll|[T#Obstacle]
+  --*Obstacle:|[$ObstacleRoll.tableEntryText]
+  --*May be Defended| by [rbutton]Stranger!::Stranger[/rbutton] or  [Danger!](`#Random-Encounter)
+  --X|
+
+  --:Stranger|
+  --=StrangerRoll|[T#Stranger]
+  --*Stranger:|[$StrangerRoll.tableEntryText]
+  --*Initial Reaction:|   [Reaction Roll](`#Reaction)
+  --X|
+
+}}
+
+
+
+
+SOME DIE ROLL BUTTONS
+
+  --/Dice [Bag](`#🎲-Dice-Bag-🎲)|[br] [sheetbutton]d4w+2::DiceBag::d4wp2[/sheetbutton] [sheetbutton]d6w+2::DiceBag::d6wp2[/sheetbutton] [sheetbutton]d8w+2::DiceBag::d8wp2[/sheetbutton] [sheetbutton]d10w+2::DiceBag::d10wp2[/sheetbutton] [sheetbutton]d12w+2::DiceBag::d12wp2[/sheetbutton]
+
+
+PARTY STATUS SW
+
+!scriptcard  {{
+  --#titlecardbackground|#990000
+  --#evenrowbackground|#B6AB91
+  --#oddrowbackground|#CEC7B6
+
+  --#title|Party Status
+  --#leftsub|left sub
+  --#rightsub|right sub
+  --+Name Pace/Parry/Tough/Armor/Wounds/PP
+
+  --/ Args:  characer_id, short name
+  -->WriteLine
+
+
+
+
+  -->HealthCheck|@{Glamwise|character_id},
+  -->HealthCheck|@{Throckmortin|character_id}
+  -->HealthCheck|@{Sherman Witt|character_id}
+  -->HealthCheck|@{Lily Riverhopper|character_id}
+  --X|End of card Execution
+
+  --:HealthCheck|
+  --=HealthPerc|[*[%1%]:hp] / [*[%1%]:hp^] * 100 \ 1
+  --=HealthColor|000000
+  --?[$HealthPerc.Total] -gt 50|HealthSkip
+  --=HealthColor|FF0000
+  --:HealthSkip|
+  --+[*[%1%]:character_name]|has [#[$HealthColor.RollText]][*[%1%]:hp] of [*[%1%]:hp^][/#] HP [R]([$HealthPerc.Total]%)[/R]
+  --<|End of HealthCheck
+}}
+
+Multiple skill/stat rolls
+
+!script {{
+--:USER INPUT|
+  --=NumAttacks|?{#Rolls?|2}
+  --=Mods|?{Mods?|0}
+  --=WildDie|?{Wild Die?|0}
+
+--:TITLE CARD DISPLAY|
+  --#titlecardbackground|#990000
+  --#evenrowbackground|#B6AB91
+  --#oddrowbackground|#CEC7B6
+  --#title|NPC Trait Rolls!
+  --#sourceToken|@{selected|token_id}
+  --#emoteText|Your enemies attempt to resist your attempts to seize the advantage...
+  --#leftsub|Mods: [$Mods], Wild: [$WildDie]
+
+
+--:LOOP THROUGH TRAIT ROLLS - MULTILINE OUTPUT
+  --%LoopCounter2|1;[$NumAttacks];1
+    --=Ag| 1[*S:AGI]  + [$Mods]
+    --=Sm| 1[*S:SMA]  + [$Mods]
+    --=Sp| 1[*S:SPI] + [$Mods]
+    --=St| 1[*S:STR] + [$Mods]
+    --=Vg| 1[*S:VIG] + [$Mods]
+    --=At| 1[*S:ATH] + [$Mods]
+    --=So| 1[*S:SOC] + [$Mods]
+    --=No| 1[*S:NOT] + [$Mods]
+    --=Wild|1d6!*[$WildDie] + [$Mods]*[$WildDie]
+    --+#[&LoopCounter2]:|**Ag:[$Ag] Sm:[$Sm] Sp:[$Sp] St:[$St] Vg:[$Vg]** [br] &nbsp;
+**[#f00]Wild:[/#][$Wild] Athletics: [$At], Notice: [$No] ** [br] &nbsp;
+Healing, Lore, Repair, Survival: [$Sm]  [br] &nbsp;
+Intim, Pers, Taunt: [$So];  Thievery, Drive: [$Ag]
+  --%|
+
+Attack
+
+!script {{
+--:USER INPUT|
+  --=NumAttacks|?{#Attacks?|2}
+  --=Mods|?{Mods?|0}
+  --=WildDie|?{Wild Die?|0}
+
+--:TITLE CARD DISPLAY|
+  --#titlecardbackground|#990000
+  --#evenrowbackground|#B6AB91
+  --#oddrowbackground|#CEC7B6
+  --#title|NPC Attack!
+  --#sourceToken|@{selected|token_id}
+   --#emoteText|Your enemies press forward and attack ferociously...
+   --#leftsub|Att: [*S:CBT], Arc: [*S:ARC]
+   --#rightsub|Mods: [$Mods], Wild: [$WildDie]
+
+--:LOOP THROUGH ATTACKS|
+  --%LoopCounter|1;[$NumAttacks];1
+    --=Attack| 1[*S:CBT]  + [$Mods]
+    --=Frenzy| 1[*S:CBT]  + [$Mods]
+    --=Arcane| 1[*S:ARC] + [$Mods]
+    --=Wild|1d6!*[$WildDie] + [$Mods]*[$WildDie]
+    --+#[&LoopCounter]:|**Att:** [$Attack] **Frz:** [$Frenzy] **Arc:** [$Arcane] (**W:**) [$Wild]
+ --%|
+
+--:PROVIDE A BUTTON FOR ROLLING DAMAGE|
+   --+[c][Roll Damage!](`#✳️sc-DAM)[/c]|
+
+ }}
+
+
+
+Damage Only
+
+!script {{
+--:USER INPUT|
+  --=NumAttacks|?{#Rolls?|2}
+  --=Mods|?{Mods?|0}
+
+--:TITLE CARD DISPLAY|
+  --#titlecardbackground|#990000
+  --#evenrowbackground|#B6AB91
+  --#oddrowbackground|#CEC7B6
+  --#title|NPC Damage!
+  --#sourceToken|@{selected|token_id}
+   --#emoteText|Your enemies strike with terrifying force and accuracy...
+   --#leftsub|Str: [*S:STR], Melee: [*S:MDM], Range: [*S:RDM] Mods: [$Mods]
+
+--:LOOP THROUGH ATTACKS
+  --%LoopCounter|1;[$NumAttacks];1
+    --=Melee| 1[*S:STR] + 1[*S:MDM]
+    --=Range| [*S:RDM]
+    --=Raise|1d6!
+    --+#[&LoopCounter]:|**Melee:** [$Melee]  **Range:** [$Range]  **Raise!** [$Raise]
+ --%|
+
+ }}
+
+
+
+
+
+Shake and Soak
+
+!script {{
+--:USER INPUT|
+  --=NumAttacks|?{#Rolls?|2}
+  --=Mods|?{Mods?|0}
+  --=WildDie|?{Wild Die?|0}
+
+--:TITLE CARD DISPLAY|
+  --#titlecardbackground|#990000
+  --#evenrowbackground|#B6AB91
+  --#oddrowbackground|#CEC7B6
+  --#title|NPC Trait Rolls!
+  --#sourceToken|@{selected|token_id}
+  --#emoteText|Your enemies attempt to shake off your assault and re-join the fight...
+
+--:Store and print CBR and IRJ as +2 Mods if set|
+    --=Irj| 2d[*S:IRJ]
+    --=Cbr| 2d[*S:CBR]
+    --#leftsub|Mods: [$Mods],  CBR: [$Cbr], IRJ: [$Irj] [br] SPI: [*S:SPI], VIG: [*S:VIG] ,Wild: [$WildDie]
+
+
+--:LOOP THROUGH TRAIT ROLLS - MULTILINE OUTPUT|
+  --%LoopCounter2|1;[$NumAttacks];1
+    --=Sp| 1[*S:SPI] + [$Mods] + [$Cbr]
+    --=Vg| 1[*S:VIG] + [$Mods] + [$Irj]
+    --=ShWild| 1d6!*[$WildDie] + [$Mods]*[$WildDie] + [$Cbr]*[$WildDie]
+    --=SoWild|1d6!*[$WildDie] + [$Mods]*[$WildDie] + [$Irj]*[$WildDie]
+    --+#[&LoopCounter2]:|**Shake:[$Sp] Wi:[$ShWild] | Soak:[$Vg] Wi:[$SoWild]**
+  --%|
+
+ }}
+
+
+
+Loot Card Value
+
+!script {{
+--/USER INPUT|
+  --=NumAttacks|?{#Cards?|1}
+
+--/TITLE CARD DISPLAY|
+  --#titlecardbackground|#990000
+  --#evenrowbackground|#B6AB91
+  --#oddrowbackground|#CEC7B6
+  --#title|Loot Card Values!
+  --#leftsub|Talons or Magic Item if 2+ Dice Explode!
+
+
+--/LOOP THROUGH TRAIT ROLLS - MULTILINE OUTPUT|
+  --%LoopCounter2|1;[$NumAttacks];1
+    --=dFour| 1d4!
+    --=dSix| 1d6!
+    --=dEight| 1d8!
+    --=dTen| 1d10!
+    --=dTotal| [$dFour] * [$dSix] * [$dEight] * [$dTen]
+    --=dAces| [$dFour.Aces] + [$dSix.Aces] + [$dEight.Aces] + [$dTen.Aces]
+     --?[$dAces.Total] -gt 1|&Result;or a Magic Item!|&Result;
+    --+#[&LoopCounter2]:|d4:[$dFour] d6:[$dSix] d8:[$dEight] d10:[$dTen] [br]   Found: [$dTotal] T [b][#f00][&Result][/#][/b]
+  --%|
+
+--/PROVIDE A BUTTON FOR ROLLING MAGIC ITEMS|
+   --+[c]👑[Roll Magic Item!](`#Loot)👑[/c]|
+
+}}
+
+Discern Reality
+
+!scriptcard  {{
+--/COLOR CONFIG|
+  --#titlecardbackground|#990000
+  --#evenrowbackground|#CEC7B6
+  --#oddrowbackground|#B6AB91
+  --#emoteBackground|#CEC7B6
+
+--/TITLES AND EMOTES|
+  --#title|Discern Reality
+  --#leftsub|[c]When you take the time to closely study a [b][i]Situation[/b][/i] or a [b][i]Person[/b][/i] roll [u]Notice[/u].[/c]
+
+
+--/CONTENT|
+  --+SITUATION:| On [u][i]Success[/u][/i], ask one question from the list below. On a [u][i]Raise[/u][/i], ask three.
+  --+1.|Where’s my best way in, way out, or way past? [br]
+    [b]2.[/b] Which enemy is most vulnerable to me? [br]
+    [b]3.[/b] Which enemy is the biggest threat?  [br]
+    [b]4.[/b] What should I be on the lookout for?  [br]
+    [b]5.[/b] What here is useful or valuable to me? [br]
+    [b]6.[/b] What happened here recently? [br]
+    [b]7.[/b] What here is not what it appears to be? [br]
+    [b]8.[/b] Who’s really in control here?  [br]
+  --+PERSON:| On [u][i]Success[/u][/i], Hold 1.  On a [u][i]Raise[/u][/i], Hold 3.  While interacting with the person, spend Hold to ask questions from the list below, 1 for 1:
+  --+1.|Is this person telling the truth?  [br]
+    [b]2.[/b] What is this person really feeling?  [br]
+    [b]3.[/b] What does this person intend to do?  [br]
+    [b]4.[/b] What does this person wish I’d do?  [br]
+    [b]5.[/b] How could I get this person to __?
+
+}}
+
+
+Trait Rolls for extras
+* get and do # rolls
+* print 1 liners after the rolls
+
+!scriptcard  {{
+--/COLOR CONFIG|
+  --#titlecardbackground|#990000
+  --#evenrowbackground|#CEC7B6
+  --#oddrowbackground|#B6AB91
+  --#emoteBackground|#CEC7B6
+
+--/OUTPUT OPTIONS|
+  --#whisper|gm
+  --#sourceToken|@{selected|token_id}
+
+
+--/TITLES AND EMOTES|
+  --#title|Your Title Here
+  --#leftsub|[c]centered sub-text line 1 [br] centered sub-text line 2[/c]
+  --#emoteText|Your enemy presses forward and attacks ferociously...
+
+--/CONTENT|
+  --+Odd|  Row text
+  --+Even| Row text
+
+}}
