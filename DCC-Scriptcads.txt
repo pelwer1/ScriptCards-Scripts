@@ -1,0 +1,100 @@
+
+=============    DCC SECTION ================
+
+
+PARTY STATUS DCC
+
+!scriptcard  {{
+  --#leftsub|leftsub
+  --/rightsub| No Right Sub
+  --#titlecardbackground|#990000
+  --#evenrowbackground|#B6AB91
+  --#oddrowbackground|#CEC7B6
+
+  --#title|Party Status
+  --/#titleCardBackground|#33CC33
+  --/#oddrowbackground|#bfee90
+  --/#evenrowbackground|#90eebf
+  -->HealthCheck|@{Glamwise|character_id}
+  -->HealthCheck|@{Throckmortin|character_id}
+  -->HealthCheck|@{Sherman Witt|character_id}
+  -->HealthCheck|@{Lily Riverhopper|character_id}
+  --X|End of card Execution
+
+  --:HealthCheck|
+  --=HealthPerc|[*[%1%]:hp] / [*[%1%]:hp^] * 100 \ 1
+  --=HealthColor|000000
+  --?[$HealthPerc.Total] -gt 50|HealthSkip
+  --=HealthColor|FF0000
+  --:HealthSkip|
+  --+[*[%1%]:character_name]|has [#[$HealthColor.RollText]][*[%1%]:hp] of [*[%1%]:hp^][/#] HP [R]([$HealthPerc.Total]%)[/R]
+  --<|End of HealthCheck
+}}
+
+
+CLERIC ABILITY CHECK DCC
+
+!scriptcard {{
+   --/this is a script comment line
+  --#sourceToken|@{selected|token_id}
+  --#title|Cleric Ability Check
+  --#leftsub|Current Disapproval: @{selected|ClericDisapproval}
+  --/rightsub| No Right Sub
+  --#emotetext|@{selected|character_name} cries out for the support of his god...
+
+  --/ store modifiers
+  --=PerMod| [[@{selected|Personality_mod}]]
+  --=LevelMod| [[@{selected|Level}]]
+  --=LuckMod| [[@{selected|Level}]]
+
+  --/ store rolls
+  --=SpellRoll|1d20 + [$PerMod] + [$LevelMod]
+  --=TurnRoll|1d20 + [$PerMod] + [$LevelMod] + [LuckMod]
+
+  --/ write roll descriptions
+  --+Roll Calculations:|
+  --+   Spell:|d20+Per:[$PerMod]+Lvl:[$LevelMod]
+  --+    Lay on Hands:|d20+Per:[$PerMod]+Lvl:[$LevelMod]
+  --+    Turn:|d20+Per:[$PerMod]+Lvl:[$LevelMod]+Luck:[$LuckMod]
+
+  --/ write results
+  --+Roll Results:|
+  --+   Spell or Lay on Hands| [$SpellRoll]
+  --+   Turn Unholy|  [$TurnRoll]
+
+  --+Roll Reference:|
+  --+   Healing:| 2hd@12; 3@14; 4@20; 5@22
+  --+   Mending:|Broken Limb@1d; Organ Damage or Disease@2d; Paralysis or Poison@3d; Blindness or Deafness@4d
+  --+   Unholy| Mundane animals, un-dead, demons, devils, monsters (e.g., basilisk or medusa), lycanthropes, perversions of
+nature (e.g., otyughs and slimes)
+
+
+}}
+
+TOKEN MARKER CONDITION LISTER
+
+!script {{
+  --#title|Condition Symbols
+  --#leftsub|Meaning of the Symbols.
+  --#titlecardbackground|#990000
+  --#evenrowbackground|#B6AB91
+  --#oddrowbackground|#CEC7B6
+ 
+  --+|[t border=0 width=100%][tr][td] [c] [sm width=35px]snail[/sm]   [b]Blessed[/b][/c]  [/td][td]   [sm width=30px]stopwatch[/sm]   [b]Blind[/b]  [/td][/tr] [/t]
+  --+[sm width=35px]snail[/sm]|[b]Blessed[/b] [sm width=30px]stopwatch[/sm]|[b]Blind[/b]
+  --+[sm width=25px]dd-charmed[/sm]|[b]Charmed[/b]
+  --+[sm width=25px]dd-deafened[/sm]|[b]Deafened[/b]
+  --+[sm width=25px]dd-frightened[/sm]|[b]Frightened[/b]
+  --+[sm width=25px]dd-grappled[/sm]|[b]Grappled[/b]
+  --+[sm width=25px]dd-invisible[/sm]|[b]Invisible[/b]
+  --+[sm width=25px]dd-incapacitated[/sm]|[b]Incapacitated[/b]
+  --+[sm width=25px]dd-paralyzed[/sm]|[b]Paralyzed[/b]
+  --+[sm width=25px]dd-petrified[/sm]|[b]Petrified[/b]
+  --+[sm width=25px]dd-poisoned[/sm]|[b]Poisoned[/b]
+  --+[sm width=25px]dd-prone[/sm]|[b]Prone[/b]
+  --+[sm width=25px]x-rage[/sm]|[b]Rage[/b]
+  --+[sm width=25px]dd-restrained[/sm]|[b]Restrained[/b]
+  --+[sm width=25px]dd-stunned[/sm]|[b]Stunned[/b]
+  --+[sm width=25px]dd-unconscious[/sm]|[b]Unconcious[/b]
+  --+[sm width=25px]path-dead[/sm]|[b]Dead[/b]
+}}
