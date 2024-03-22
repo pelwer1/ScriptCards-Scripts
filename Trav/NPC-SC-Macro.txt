@@ -36,8 +36,6 @@
 
 --/|SET SCRIPT SPECIFIC CARD STYLE
   -->LibTrav_CardHeader|a;b
-  --#noMinMaxHighlight|1
-  --#noRollHighlight|1
   --#sourceToken|@{selected|token_id}
   --#emoteSourceTokenSize|50
   --#emoteState|visible 

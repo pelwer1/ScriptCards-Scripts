@@ -2,47 +2,43 @@
 
 !script {{
 
---/|TITLE CARD DISPLAY
-  --#titlecardbackground|#000000
-  --#tableBorder|3px solid #8B0000;
-  --#evenrowbackground|#D3D3D3
-  --#oddrowbackground|#E5E4E2
-  --#titleFontColor|#FFD700 
-  --#noMinMaxHighlight|1
-  --#noRollHighlight|1 
+
+--/|LOAD LIRARY FUNCTIONS
++++TravellerMg2eLib+++
+
+--/|SET SCRIPT SPECIFIC CARD STYLE
+    -->LibTrav_CardHeader|a;b
 
 --/|USER INPUT
-  --=NumRolls|?{# Rolls?|1}
-  --=EffectMod|?{Effect Damage DM?|0}
+    --=NumRolls|?{# Rolls?|1}
+    --=EffectMod|?{Effect Damage DM?|0}
 
-  --#title|Rolling a Pile of D6's 
-  --#leftsub| #Rolls: [$NumRolls],  Effect Damage DM: [$EffectMod] 
+--/|SET TITLES
+    --#title|Rolling a Pile of D6's 
+    --#leftsub| #Rolls: [$NumRolls],  Effect Damage DM: [$EffectMod] 
 
-          --/|create a string variable with just a space in it   [&SP] 
-          --&SP| 
-           --/|SP = >[&SP]<  ><
-          --+[F:Courier New:16]##:[&SP]1D[/F][F:Courier New:8][&SP][/F][F:Courier New:16][&SP]2D[&SP][/F][F:Courier New:4][&SP][/F][F:Courier New:16]3D[/F][F:Courier New:20][&SP][/F][F:Courier New:16]4D[/F][F:Courier New:22][&SP][/F][F:Courier New:16]5D[/F][F:Courier New:22][&SP][/F][F:Courier New:16]6D[/F][F:Courier New:20][&SP][/F][F:Courier New:16]7D[/F][F:Courier New:22][&SP][/F][F:Courier New:16]8D             | [/F]
-
+--/|create a string variable with just a space in it   [&SP] 
+    --&SP|&nbsp;
+    --/SP = >[&SP]<    | (debug)
+    --+[F:Courier New:16]##:[&SP]1D[/F][F:Courier New:12][&SP][/F][F:Courier New:16][&SP]2D[&SP][/F][F:Courier New:8][&SP][/F][F:Courier New:16]3D[/F][F:Courier New:20][&SP][/F][F:Courier New:16]4D[/F][F:Courier New:24][&SP][/F][F:Courier New:16]5D[/F][F:Courier New:24][&SP][/F][F:Courier New:16]6D[/F][F:Courier New:24][&SP][/F][F:Courier New:16]7D[/F][F:Courier New:22][&SP][/F][F:Courier New:16]8D             | [/F]
 
   --/|LOOP THROUGH ROLLS OF  DAMAGE
     --%LoopCounter|1;[$NumRolls];1
-
-    --/| DAMAGE
-      --=1D| 1d6    + [$EffectMod]
-      --=2D| 2d6  + [$EffectMod] 
-      --=3D| 3d6  + [$EffectMod]
-      --=4D| 4d6  + [$EffectMod]
-      --=5D| 5d6 + [$EffectMod]
-      --=6D| 6d6 + [$EffectMod]
-      --=7D| 7d6 + [$EffectMod]
-      --=8D| 8d6 + [$EffectMod]
+        --/| DAMAGE
+        --=1D| 1d6 + [$EffectMod]
+        --=2D| 2d6 + [$EffectMod] 
+        --=3D| 3d6 + [$EffectMod]
+        --=4D| 4d6 + [$EffectMod]
+        --=5D| 5d6 + [$EffectMod]
+        --=6D| 6d6 + [$EffectMod]
+        --=7D| 7d6 + [$EffectMod]
+        --=8D| 8d6 + [$EffectMod]
 
     --/| OUTPUT
-
       --?[&LoopCounter] -lt  10 |[
           --+[F:Courier New:16]0[&LoopCounter]:[/F]|[F:Courier New:16][$1D][$2D][$3D][$4D][$5D][$6D][$7D][$8D]  [/F]
       --]|[
-              --+[F:Courier New:16] [&LoopCounter]:[/F]|[F:Courier New:16][$1D][$2D][$3D][$4D][$5D][$6D][$7D][$8D]  [/F]
+          --+[F:Courier New:16] [&LoopCounter]:[/F]|[F:Courier New:16][$1D][$2D][$3D][$4D][$5D][$6D][$7D][$8D]  [/F]
       --]|
 
   --%|
