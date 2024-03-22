@@ -1,0 +1,27 @@
+
+! This is a Set of scripts that set clear the various token markers used in the game
+
+
+
+! HIT
+!script {{
+    +++TravellerMg2eLib+++
+    -->LibTrav_CardHeader|a;b
+    --#sourceToken|@{selected|token_id}
+    -->LibTrav_ToggleTokenStatusMarker|StatusOnOff;"yellow"
+    -->LibTrav_TokenMarkerDefinition|x;[&StatusOnOff];"🟡";"Hit!";"Hit (but not Impaired)"
+}}
+
+! HURT
+!script {{
+    +++TravellerMg2eLib+++
+    -->LibTrav_CardHeader|a;b
+    --#sourceToken|@{selected|token_id}
+    -->LibTrav_ToggleTokenStatusMarker|StatusOnOff;"yellow"
+    -->LibTrav_TokenMarkerDefinition|x;[&StatusOnOff];"🔴";"Hurt!";"Hurt DM-2"
+}}
+
+will also work for:  
+Aim, bane, boon, disease, fatigue, poison, prone, rads
+
+
